@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+    <dict>
+        <key>PayloadDisplayName</key>
+        <string>Jamf Connect - Authchanger #PreStage</string>
+        <key>PayloadOrganization</key>
+        <string>JAMF Software</string>
+        <key>PayloadDescription</key>
+        <string>This profile should be installed during pre-stage enrollment.</string>
+        
+        <key>PayloadIdentifier</key>
+        <string>com.jamf.connect.authchanger.EBC42AD5-C469-4D0D-A91F-2759E0060E73</string>
+        <key>PayloadUUID</key>
+        <string>EBC42AD5-C469-4D0D-A91F-2759E0060E73</string>
+        
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadScope</key>
+        <string>System</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        
+        <key>PayloadContent</key>
+        <array>
+            
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>Jamf Connect - Authchanger Settings</string>
+                <key>PayloadOrganization</key>
+                <string>JAMF Software</string>
+                
+                <key>PayloadIdentifier</key>
+                <string>com.jamf.connect.authchanger.90785970-E377-4922-B4FE-B75122388760</string>
+                <key>PayloadUUID</key>
+                <string>90785970-E377-4922-B4FE-B75122388760</string>
+                
+                <key>PayloadType</key>
+                <string>com.apple.ManagedClient.preferences</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                
+                <key>PayloadContent</key>
+                <dict>
+                    
+                    <key>com.jamf.connect.authchanger</key>
+                    
+                    <dict>
+                        <key>Forced</key>
+                        <array>
+                            <dict>
+                                <key>mcx_preference_settings</key>
+                                <dict>
+                                    
+                                    <key>Arguments</key>
+                                    <array>
+                                        <string>-reset</string>
+                                        <string>-JamfConnect</string>
+                                        <string>-Notify</string>
+                                    </array>
+                                    
+                                </dict>
+                            </dict>
+                        </array>
+                    </dict>
+                </dict>
+            </dict>
+            
+        </array>
+        
+    </dict>
+</plist>

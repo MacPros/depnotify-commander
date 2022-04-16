@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadDisplayName</key>
+        <string>Jamf Connect - PPPC #PreStage</string>
+        <key>PayloadOrganization</key>
+        <string>JAMF Software</string>
+        <key>PayloadDescription</key>
+        <string>This profile should be installed during pre-stage enrollment.</string>
+        
+        <key>PayloadIdentifier</key>
+        <string>com.jamf.connect.login.08DFC217-A359-4723-9240-4AF1B5BF6C3B</string>
+        <key>PayloadUUID</key>
+        <string>08DFC217-A359-4723-9240-4AF1B5BF6C3B</string>
+        
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadScope</key>
+        <string>System</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        
+        <key>PayloadContent</key>
+        <array>
+            
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>Jamf Connect - PPPC</string>
+                <key>PayloadOrganization</key>
+                <string>JAMF Software</string>
+                
+                <key>PayloadIdentifier</key>
+                <string>com.jamf.connect.login.F2C203F3-62DF-44BA-BF5E-228F57E2E58A</string>
+                <key>PayloadUUID</key>
+                <string>F2C203F3-62DF-44BA-BF5E-228F57E2E58A</string>
+                
+                <key>PayloadType</key>
+                <string>com.apple.TCC.configuration-profile-policy</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                
+                <key>Services</key>
+                <dict>
+                    
+                    <key>SystemPolicyAllFiles</key>
+                    <array>
+                        <dict>
+                            <key>Comment</key>
+                            <string>fdesetup</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>Identifier</key>
+                            <string>com.apple.authorizationhost</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.apple.authorizationhost" and anchor apple</string>
+                            <key>StaticCode</key>
+                            <false/>
+                            <key>Allowed</key>
+                            <true/>
+                        </dict>
+                    </array>
+                    
+                </dict>
+                
+            </dict>
+            
+        </array>
+        
+    </dict>
+</plist>

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0C1F5CA72809F05400D44A17 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F5CA62809F05400D44A17 /* main.swift */; };
+		0C1F5CB62809FC1A00D44A17 /* DEPNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */; };
+		0CAFF7D2280B5DFC007CFFCF /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D1280B5DFC007CFFCF /* Version */; };
+		0CAFF7D5280B5E46007CFFCF /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D4280B5E46007CFFCF /* Files */; };
+		0CAFF7D8280B5E58007CFFCF /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D7280B5E58007CFFCF /* ShellOut */; };
+		0CAFF7DA280B6133007CFFCF /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF7D9280B6133007CFFCF /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +28,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C1F5CA32809F05400D44A17 /* NotifyCommander */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NotifyCommander; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C1F5CA32809F05400D44A17 /* depnotify_commander */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = depnotify_commander; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1F5CA62809F05400D44A17 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPNotify.swift; sourceTree = "<group>"; };
+		0C1F5CB8280B1EB200D44A17 /* Jamf Connect - PPPC.mobileconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Jamf Connect - PPPC.mobileconfig"; sourceTree = "<group>"; };
+		0C1F5CB9280B1F6800D44A17 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0C1F5CBA280B20C600D44A17 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0C1F5CBB280B290E00D44A17 /* Jamf Connect - Authchanger.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Jamf Connect - Authchanger.mobileconfig"; sourceTree = "<group>"; };
+		0C1F5CBC280B371D00D44A17 /* DEPNotify - Settings (Example).mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "DEPNotify - Settings (Example).mobileconfig"; sourceTree = "<group>"; };
+		0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = depnotify_commander.entitlements; sourceTree = "<group>"; };
+		0C1F5CBF280B4AA800D44A17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CAFF7D9280B6133007CFFCF /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CAFF7D5280B5E46007CFFCF /* Files in Frameworks */,
+				0CAFF7D2280B5DFC007CFFCF /* Version in Frameworks */,
+				0CAFF7D8280B5E58007CFFCF /* ShellOut in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,7 +58,11 @@
 		0C1F5C9A2809F05400D44A17 = {
 			isa = PBXGroup;
 			children = (
-				0C1F5CA52809F05400D44A17 /* NotifyCommander */,
+				0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */,
+				0C1F5CBA280B20C600D44A17 /* README.md */,
+				0C1F5CA52809F05400D44A17 /* DEPNotifyCommander */,
+				0C1F5CB7280B1E3100D44A17 /* JamfProfiles */,
+				0C1F5CBD280B3D7300D44A17 /* Package */,
 				0C1F5CA42809F05400D44A17 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +70,46 @@
 		0C1F5CA42809F05400D44A17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C1F5CA32809F05400D44A17 /* NotifyCommander */,
+				0C1F5CA32809F05400D44A17 /* depnotify_commander */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0C1F5CA52809F05400D44A17 /* NotifyCommander */ = {
+		0C1F5CA52809F05400D44A17 /* DEPNotifyCommander */ = {
 			isa = PBXGroup;
 			children = (
+				0C1F5CBF280B4AA800D44A17 /* Info.plist */,
 				0C1F5CA62809F05400D44A17 /* main.swift */,
+				0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */,
+				0CAFF7D9280B6133007CFFCF /* Configuration.swift */,
 			);
-			path = NotifyCommander;
+			path = DEPNotifyCommander;
+			sourceTree = "<group>";
+		};
+		0C1F5CB7280B1E3100D44A17 /* JamfProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				0C1F5CB9280B1F6800D44A17 /* README.md */,
+				0C1F5CB8280B1EB200D44A17 /* Jamf Connect - PPPC.mobileconfig */,
+				0C1F5CBB280B290E00D44A17 /* Jamf Connect - Authchanger.mobileconfig */,
+				0C1F5CBC280B371D00D44A17 /* DEPNotify - Settings (Example).mobileconfig */,
+			);
+			path = JamfProfiles;
+			sourceTree = "<group>";
+		};
+		0C1F5CBD280B3D7300D44A17 /* Package */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Package;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0C1F5CA22809F05400D44A17 /* NotifyCommander */ = {
+		0C1F5CA22809F05400D44A17 /* depnotify_commander */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0C1F5CAA2809F05400D44A17 /* Build configuration list for PBXNativeTarget "NotifyCommander" */;
+			buildConfigurationList = 0C1F5CAA2809F05400D44A17 /* Build configuration list for PBXNativeTarget "depnotify_commander" */;
 			buildPhases = (
 				0C1F5C9F2809F05400D44A17 /* Sources */,
 				0C1F5CA02809F05400D44A17 /* Frameworks */,
@@ -77,9 +119,14 @@
 			);
 			dependencies = (
 			);
-			name = NotifyCommander;
+			name = depnotify_commander;
+			packageProductDependencies = (
+				0CAFF7D1280B5DFC007CFFCF /* Version */,
+				0CAFF7D4280B5E46007CFFCF /* Files */,
+				0CAFF7D7280B5E58007CFFCF /* ShellOut */,
+			);
 			productName = NotifyCommander;
-			productReference = 0C1F5CA32809F05400D44A17 /* NotifyCommander */;
+			productReference = 0C1F5CA32809F05400D44A17 /* depnotify_commander */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -97,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0C1F5C9E2809F05400D44A17 /* Build configuration list for PBXProject "NotifyCommander" */;
+			buildConfigurationList = 0C1F5C9E2809F05400D44A17 /* Build configuration list for PBXProject "DEPNotifyCommander" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -106,11 +153,16 @@
 				Base,
 			);
 			mainGroup = 0C1F5C9A2809F05400D44A17;
+			packageReferences = (
+				0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */,
+				0CAFF7D3280B5E46007CFFCF /* XCRemoteSwiftPackageReference "files" */,
+				0CAFF7D6280B5E58007CFFCF /* XCRemoteSwiftPackageReference "ShellOut" */,
+			);
 			productRefGroup = 0C1F5CA42809F05400D44A17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0C1F5CA22809F05400D44A17 /* NotifyCommander */,
+				0C1F5CA22809F05400D44A17 /* depnotify_commander */,
 			);
 		};
 /* End PBXProject section */
@@ -120,6 +172,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CAFF7DA280B6133007CFFCF /* Configuration.swift in Sources */,
+				0C1F5CB62809FC1A00D44A17 /* DEPNotify.swift in Sources */,
 				0C1F5CA72809F05400D44A17 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,9 +297,15 @@
 		0C1F5CAB2809F05400D44A17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = depnotify_commander.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -254,9 +314,15 @@
 		0C1F5CAC2809F05400D44A17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = depnotify_commander.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -265,7 +331,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0C1F5C9E2809F05400D44A17 /* Build configuration list for PBXProject "NotifyCommander" */ = {
+		0C1F5C9E2809F05400D44A17 /* Build configuration list for PBXProject "DEPNotifyCommander" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C1F5CA82809F05400D44A17 /* Debug */,
@@ -274,7 +340,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0C1F5CAA2809F05400D44A17 /* Build configuration list for PBXNativeTarget "NotifyCommander" */ = {
+		0C1F5CAA2809F05400D44A17 /* Build configuration list for PBXNativeTarget "depnotify_commander" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C1F5CAB2809F05400D44A17 /* Debug */,
@@ -284,6 +350,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/Version.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		0CAFF7D3280B5E46007CFFCF /* XCRemoteSwiftPackageReference "files" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnSundell/files.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		0CAFF7D6280B5E58007CFFCF /* XCRemoteSwiftPackageReference "ShellOut" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnSundell/ShellOut.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0CAFF7D1280B5DFC007CFFCF /* Version */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */;
+			productName = Version;
+		};
+		0CAFF7D4280B5E46007CFFCF /* Files */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0CAFF7D3280B5E46007CFFCF /* XCRemoteSwiftPackageReference "files" */;
+			productName = Files;
+		};
+		0CAFF7D7280B5E58007CFFCF /* ShellOut */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0CAFF7D6280B5E58007CFFCF /* XCRemoteSwiftPackageReference "ShellOut" */;
+			productName = ShellOut;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C1F5C9B2809F05400D44A17 /* Project object */;
 }

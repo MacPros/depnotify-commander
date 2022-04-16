@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+    <dict>
+        <key>PayloadDisplayName</key>
+        <string>DEPNotify - Settings #PreStage</string>
+        <key>PayloadOrganization</key>
+        <string>JAMF Software</string>
+        <key>PayloadDescription</key>
+        <string>This profile should be installed during pre-stage enrollment.</string>
+        
+        <key>PayloadIdentifier</key>
+        <string>menu.nomad.DEPNotify.8DCE8F00-FE9E-41FD-9471-58C9864A238D</string>
+        <key>PayloadUUID</key>
+        <string>8DCE8F00-FE9E-41FD-9471-58C9864A238D</string>
+        
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadScope</key>
+        <string>System</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        
+        <key>PayloadContent</key>
+        <array>
+            
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>DEPNotify - Automation</string>
+                <key>PayloadOrganization</key>
+                <string>JAMF Software</string>
+                
+                <key>PayloadIdentifier</key>
+                <string>com.allcovered.depnotify-commander.6DFE9CFF-FFE7-4C1B-A747-C5F39728330F</string>
+                <key>PayloadUUID</key>
+                <string>6DFE9CFF-FFE7-4C1B-A747-C5F39728330F</string>
+                
+                <key>PayloadType</key>
+                <string>com.apple.ManagedClient.preferences</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                
+                <key>PayloadContent</key>
+                <dict>
+                    
+                    <key>com.allcovered.depnotify-commander</key>
+                    
+                    <dict>
+                        <key>Forced</key>
+                        <array>
+                            <dict>
+                                <key>mcx_preference_settings</key>
+                                <dict>
+                                    
+                                    <key>configuration</key>
+                                    <string>
+                                        {
+                                            "steps": [
+                                                {
+                                                    "status": "Installing Rosetta 2…",
+                                                    "event": "installRosetta"
+                                                },
+                                                {
+                                                    "status": "Installing Google Chrome…",
+                                                    "event": "installGoogleChrome"
+                                                }
+                                            ]
+                                        }
+                                    </string>
+
+                                    <!-- Optional embedded images -->
+                                    <key>images</key>
+                                    <dict>
+                                        <key>/var/tmp/depnotify_registration_picture.png</key>
+                                        <data>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</data>
+                                    </dict>
+                                    
+                                </dict>
+                            </dict>
+                        </array>
+                    </dict>
+                </dict>
+            </dict>
+            
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>DEPNotify - Settings</string>
+                <key>PayloadOrganization</key>
+                <string>JAMF Software</string>
+                
+                <key>PayloadIdentifier</key>
+                <string>menu.nomad.DEPNotify.1EEC3627-0109-4D70-8F59-6E1C4EF88B2F</string>
+                <key>PayloadUUID</key>
+                <string>1EEC3627-0109-4D70-8F59-6E1C4EF88B2F</string>
+                
+                <key>PayloadType</key>
+                <string>com.apple.ManagedClient.preferences</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                
+                <key>PayloadContent</key>
+                <dict>
+                    
+                    <key>menu.nomad.DEPNotify</key>
+                    
+                    <dict>
+                        <key>Forced</key>
+                        <array>
+                            <dict>
+                                <key>mcx_preference_settings</key>
+                                <dict>
+                                    
+                                    <!-- ## Main Window Configuration ## -->
+                                    
+                                    <!-- Sets the title and text of the help bubble -->
+                                    <key>helpBubble</key>
+                                    <array>
+                                        <string>Need Help?</string>
+                                        <string>This tool is designed to help with new employee onboarding. If you have issues, please give us a call at 123-456-7890</string>
+                                    </array>
+                                    
+                                    <!-- Sets the UserInput.plist file location. This file is used for responses from EULA and registration windows. -->
+                                    <key>pathToPlistFile</key>
+                                    <string>/var/tmp/depnotify_user_input.plist</string>
+                                    
+                                    <!-- Sets the main screen status text alignment under the progress bar. Can be left, center or right -->
+                                    <key>statusTextAlignment</key>
+                                    <string>center</string>
+                                    
+                                    
+                                    <!-- ## EULA Window Configuration ## -->
+                                    
+                                    <!-- Sets EULA main title -->
+                                    <!--
+                                    <key>EULAMainTitle</key>
+                                    <string>Organization End User License Agreement</string>
+                                    -->
+                                    
+                                    <!-- Sets EULA sub title -->
+                                    <!--
+                                    <key>EULASubTitle</key>
+                                    <string>Please agree to the following terms and conditions to start configuration of this Mac</string>
+                                    -->
+                                    
+                                    <!-- Set the path to the EULA text file -->
+                                    <!--
+                                    <key>pathToEULA</key>
+                                    <string>/var/tmp/depnotify_eula.txt</string>
+                                    -->
+                                    
+                                    <!-- Allows DEPNotify to quit upon agreeing to the EULA -->
+                                    <!--
+                                    <key>quitSuccessiveEULA</key>
+                                    <true/>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration Window Configuration ## -->
+                                    
+                                    <!-- Sets registration main title -->
+                                    <!--
+                                    <key>registrationMainTitle</key>
+                                    <string>Please register your Mac</string>
+                                    -->
+                                    
+                                    <!-- Sets custom image shown on page -->
+                                    <!--
+                                    <key>registrationPicturePath</key>
+                                    <string>/var/tmp/depnotify_registration_picture.png</string>
+                                    -->
+                                    
+                                    <!-- Sets button label name -->
+                                    <!--
+                                    <key>registrationButtonLabel</key>
+                                    <string>Registration</string>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration - Text Field 1 ## -->
+                                    
+                                    <!-- Enables text input 1 and sets custom label -->
+                                    <!--
+                                    <key>textField1Label</key>
+                                    <string>Computer Name</string>
+                                    -->
+                                    
+                                    <!-- Enables text input 1 text placeholder -->
+                                    <!--
+                                    <key>textField1Placeholder</key>
+                                    <string>macBook0123</string>
+                                    -->
+                                    
+                                    <!-- User can leave text input 1 text field empty -->
+                                    <!--
+                                    <key>textField1IsOptional</key>
+                                    <string>false</string>
+                                    -->
+                                    
+                                    <!-- Enables text input 1 information bubble and sets custom content -->
+                                    <!--
+                                    <key>textField1Bubble</key>
+                                    <array>
+                                        <string>Computer Name Field</string>
+                                        <string>This field is sets the name of your new Mac to what is in the "Computer Name" box. This is important for inventory purposes.</string>
+                                    </array>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration - Text Field 2 ## -->
+                                    
+                                    <!-- Enables text input 2 and sets custom label -->
+                                    <!--
+                                    <key>textField2Label</key>
+                                    <string>Asset Tag</string>
+                                    -->
+                                    
+                                    <!-- Enables text input 1 text placeholder -->
+                                    <!--
+                                    <key>textField2Placeholder</key>
+                                    <string>81926392</string>
+                                    -->
+                                    
+                                    <!-- User can leave text input 2 text field empty -->
+                                    <!--
+                                    <key>textField2IsOptional</key>
+                                    <string>true</string>
+                                    -->
+                                    
+                                    <!-- Enables text input 2 information bubble and sets custom content -->
+                                    <!--
+                                    <key>textField2Bubble</key>
+                                    <array>
+                                        <string>Asset Tag Field</string>
+                                        <string>This field is used to give an updated asset tag to our asset management system. If you do not know your asset tag number, please skip this field.</string>
+                                    </array>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration - Popup Menu 1 ## -->
+                                    
+                                    <!-- Enables popup button 1 and sets custom label -->
+                                    <!--
+                                    <key>popupButton1Label</key>
+                                    <string>Building</string>
+                                    -->
+                                    
+                                    <!-- Contents of the popup menu 1 -->
+                                    <!--
+                                    <key>popupButton1Content</key>
+                                    <array>
+                                        <string>Amsterdam</string>
+                                        <string>Katowice</string>
+                                        <string>Eau Claire</string>
+                                        <string>Minneapolis</string>
+                                    </array>
+                                    -->
+                                    
+                                    <!-- Enables popup menu 1 information bubble and sets custom content -->
+                                    <!--
+                                    <key>popupMenu1Bubble</key>
+                                    <array>
+                                        <string>Building Dropdown Field</string>
+                                        <string>Please choose the appropriate building for where you normally work. This is important for inventory purposes.</string>
+                                    </array>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration - Popup Menu 2 ## -->
+                                    
+                                    <!-- Enables popup button 2 and sets custom label -->
+                                    <!--
+                                    <key>popupButton2Label</key>
+                                    <string>Department</string>
+                                    -->
+                                    
+                                    <!-- Contents of the popup menu 2 -->
+                                    <!--
+                                    <key>popupButton2Content</key>
+                                    <array>
+                                        <string>Customer Onboarding</string>
+                                        <string>Professional Services</string>
+                                        <string>Sales Engineering</string>
+                                    </array>
+                                    -->
+                                    
+                                    <!-- Enables popup menu 2 information bubble and sets custom content -->
+                                    <!--
+                                    <key>popupMenu2Bubble</key>
+                                    <array>
+                                        <string>Department Dropdown Field</string>
+                                        <string>Please choose the appropriate department for where you normally work. This is important for inventory purposes.</string>
+                                    </array>
+                                    -->
+                                    
+                                    
+                                    <!-- ## Registration - Popup Menu 3 ## -->
+                                    
+                                    <!-- Enables popup button 3 and sets custom label -->
+                                    <!--
+                                    <key>popupButton3Label</key>
+                                    <string></string>
+                                    -->
+                                    
+                                    <!-- Contents of the popup menu 3 -->
+                                    <!--
+                                    <key>popupButton3Content</key>
+                                    <array>
+                                        <string>Option 1</string>
+                                        <string>Option 2</string>
+                                        <string>Option 3</string>
+                                    </array>
+                                    -->
+                                    
+                                    <!-- Enables popup menu 3 information bubble and sets custom content -->
+                                    <!--
+                                    <key>popupMenu3Bubble</key>
+                                    <array>
+                                        <string>Dropdown 3 Field</string>
+                                        <string>This dropdown is currently not in use.</string>
+                                    </array>
+                                    -->
+                                    
+                                    <!-- ## Registration - Popup Menu 4 ## -->
+                                    
+                                    <!-- Enables popup button 4 and sets custom label -->
+                                    <!--
+                                    <key>popupButton4Label</key>
+                                    <string></string>
+                                    -->
+                                    
+                                    <!-- Contents of the popup menu 4 -->
+                                    <!--
+                                    <key>popupButton4Content</key>
+                                    <array>
+                                        <string>Option 1</string>
+                                        <string>Option 2</string>
+                                        <string>Option 3</string>
+                                    </array>
+                                    -->
+                                    
+                                    <!-- Enables popup menu 4 information bubble and sets custom content -->
+                                    <!--
+                                    <key>popupMenu4Bubble</key>
+                                    <array>
+                                        <string>Dropdown 4 Field</string>
+                                        <string>This dropdown is currently not in use.</string>
+                                    </array>
+                                    -->
+                                    
+                                </dict>
+                            </dict>
+                        </array>
+                    </dict>
+                </dict>
+            </dict>
+            
+        </array>
+        
+    </dict>
+</plist>
