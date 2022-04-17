@@ -55,11 +55,16 @@ if let content = configuration.content {
     content.update()
 }
 
+if let status = configuration.status {
+    print("Status: \(status)")
+    depnotify.status = status
+}
+
 do {
     for step in configuration.steps {
         if let status = step.status {
             print("Status: \(status)")
-            depnotify.status = step.status ?? ""
+            depnotify.status = status
         }
         
         if let content = step.content {
