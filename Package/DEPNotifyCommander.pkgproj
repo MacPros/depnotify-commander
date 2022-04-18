@@ -824,7 +824,7 @@
 			<key>USE_HFS+_COMPRESSION</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.0.0</string>
+			<string>1.0.1</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -1017,7 +1017,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>DEPNotifyCommander-1.0.0</string>
+			<string>DEPNotifyCommander-1.0.1</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>

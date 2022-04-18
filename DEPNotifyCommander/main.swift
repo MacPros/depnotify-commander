@@ -10,6 +10,8 @@ import ShellOut
 import Files
 import Version
 
+// TODO: Add support to pull in the SSO user name: https://docs.jamf.com/jamf-connect/2.10.0/documentation/Notify_Screen.html
+
 print("depnotify-commander v\(Bundle.main.version.description)")
 
 let defaults = UserDefaults.standard
@@ -82,6 +84,8 @@ do {
         }
     }
     
+    depnotify.status = ""
+    
     if let completionContent = configuration.completionContent {
         completionContent.update()
     }
@@ -93,6 +97,8 @@ do {
     if let completionEvent = configuration.completionEvent {
         try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
     }
+    
+    // /usr/local/bin/authchanger -reset -JamfConnect
     
 } catch {
     fatalError("Error communicating with jamf command line. \(error)")
