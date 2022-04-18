@@ -49,6 +49,10 @@ public class DEPNotify {
         try! _logFile.append("Command: \(command)\n")
     }
     
+    private func _status(_ status: String) {
+        try! _logFile.append("Status: \(status)\n")
+    }
+    
     // MARK: Main Content
     
     public enum Image {
@@ -126,7 +130,7 @@ public class DEPNotify {
     /// The status text
     public var status: String = "" {
         didSet {
-            _command("Status: \(status)")
+            _status(status)
         }
     }
     

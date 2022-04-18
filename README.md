@@ -18,3 +18,4 @@ Note: This utility is not yet tested for DEPNotify deployments using automated e
 * Add caffeinate option
 * Add option to launch DEPNotify standalone app. (`CURRENT_USER=$(/usr/bin/stat -f "%Su" /dev/console) ;
   CURRENT_USER_ID=$(id -u $CURRENT_USER) ; launchctl asuser $CURRENT_USER_ID open -a "/Applications/Utilities/DEPNotify.app"`)
+* Option to run authchanger command on completion

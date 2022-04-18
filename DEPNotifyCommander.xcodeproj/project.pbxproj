@@ -39,6 +39,7 @@
 		0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = depnotify_commander.entitlements; sourceTree = "<group>"; };
 		0C1F5CBF280B4AA800D44A17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CAFF7D9280B6133007CFFCF /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		0CAFF7DB280DC518007CFFCF /* self_service.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = self_service.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 		0C1F5CB7280B1E3100D44A17 /* JamfProfiles */ = {
 			isa = PBXGroup;
 			children = (
+				0CAFF7DB280DC518007CFFCF /* self_service.sh */,
 				0C1F5CB9280B1F6800D44A17 /* README.md */,
 				0C1F5CB8280B1EB200D44A17 /* Jamf Connect - PPPC.mobileconfig */,
 				0C1F5CBB280B290E00D44A17 /* Jamf Connect - Authchanger.mobileconfig */,
