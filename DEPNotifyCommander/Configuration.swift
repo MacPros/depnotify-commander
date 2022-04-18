@@ -39,6 +39,8 @@ class DEPNotifyStep: Decodable {
     
     var content: DEPNotifyContent?
     
+    // Skip inventory for this step.
+    var skipInventory: Bool?
 }
 
 class DEPNotifyContent: Decodable {

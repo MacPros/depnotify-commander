@@ -24,6 +24,7 @@ let images = defaults.dictionary(forKey: "images") as? [String: Data]
 if let images = images {
     for (imagePath, imageData) in images {
         let imageURL = URL(fileURLWithPath: imagePath)
+        let imagePath = imageURL.deletingLastPathComponent().path // TODO: Make destination folder
         do {
             try imageData.write(to: imageURL)
         } catch {
@@ -73,7 +74,11 @@ do {
         
         if let event = step.event {
             print("Starting policies with event: \(event)")
-            try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+            if let skipInventory = step.skipInventory, skipInventory == true {
+                try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
+            } else {
+                try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+            }
         }
     }
     

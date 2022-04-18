@@ -14,3 +14,4 @@ Note: This utility is not yet tested for DEPNotify deployments using automated e
 ## Planned Features
 
 * Optionally support a JSON Schema for DEPNotify steps.
+* Create folders for images outside of /var/tmp
