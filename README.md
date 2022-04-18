@@ -15,3 +15,6 @@ Note: This utility is not yet tested for DEPNotify deployments using automated e
 
 * Optionally support a JSON Schema for DEPNotify steps.
 * Create folders for images outside of /var/tmp
+* Add caffeinate option
+* Add option to launch DEPNotify standalone app. (`CURRENT_USER=$(/usr/bin/stat -f "%Su" /dev/console) ;
+  CURRENT_USER_ID=$(id -u $CURRENT_USER) ; launchctl asuser $CURRENT_USER_ID open -a "/Applications/Utilities/DEPNotify.app"`)
