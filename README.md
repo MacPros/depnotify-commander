@@ -21,3 +21,20 @@ Note: This utility is not yet tested for DEPNotify deployments using automated e
 * Option to run authchanger command on completion
 * Option to pull the SSO user name in to a variable.
 * Option to set JAMF user with SSO user name.
+
+
+## Notarization
+
+```
+# Specify keychain profile name (i.e. "notary-eric_summers") when prompted. This requires an Apple ID app specific password.
+xcrun notarytool store-credentials --apple-id "eric_summers@icloud.com" --team-id "L48NM5T974"
+
+pkgbuild --root "depnotify_commander 2022-04-25 12-44-33/Products" --identifier "com.allcovered.depnotify-commander" --version
+"1.0.1" --install-location "/" --sign "Developer ID Installer: Eric Summers (L48NM5T974)" DEPNotifyCommander-1.0.1.pkg
+
+xcrun notarytool submit DEPNotifyCommander-1.0.1.pkg --keychain-profile "notary-eric_summers" --wait
+
+xcrun stapler staple DEPNotifyCommander-1.0.1.pkg      
+
+/usr/sbin/spctl --assess --type install -vv DEPNotifyCommander-1.0.1.pkg
+```

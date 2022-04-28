@@ -13,6 +13,7 @@
 		0CAFF7D5280B5E46007CFFCF /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D4280B5E46007CFFCF /* Files */; };
 		0CAFF7D8280B5E58007CFFCF /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D7280B5E58007CFFCF /* ShellOut */; };
 		0CAFF7DA280B6133007CFFCF /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF7D9280B6133007CFFCF /* Configuration.swift */; };
+		0CEB3BA8281AD98F00DED064 /* Caffeinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB3BA7281AD98F00DED064 /* Caffeinate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,7 @@
 		0C1F5CBF280B4AA800D44A17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CAFF7D9280B6133007CFFCF /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		0CAFF7DB280DC518007CFFCF /* self_service.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = self_service.sh; sourceTree = "<group>"; };
+		0CEB3BA7281AD98F00DED064 /* Caffeinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caffeinate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +61,6 @@
 		0C1F5C9A2809F05400D44A17 = {
 			isa = PBXGroup;
 			children = (
-				0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */,
 				0C1F5CBA280B20C600D44A17 /* README.md */,
 				0C1F5CA52809F05400D44A17 /* DEPNotifyCommander */,
 				0C1F5CB7280B1E3100D44A17 /* JamfProfiles */,
@@ -79,10 +80,12 @@
 		0C1F5CA52809F05400D44A17 /* DEPNotifyCommander */ = {
 			isa = PBXGroup;
 			children = (
+				0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */,
 				0C1F5CBF280B4AA800D44A17 /* Info.plist */,
 				0C1F5CA62809F05400D44A17 /* main.swift */,
 				0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */,
 				0CAFF7D9280B6133007CFFCF /* Configuration.swift */,
+				0CEB3BA7281AD98F00DED064 /* Caffeinate.swift */,
 			);
 			path = DEPNotifyCommander;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CAFF7DA280B6133007CFFCF /* Configuration.swift in Sources */,
+				0CEB3BA8281AD98F00DED064 /* Caffeinate.swift in Sources */,
 				0C1F5CB62809FC1A00D44A17 /* DEPNotify.swift in Sources */,
 				0C1F5CA72809F05400D44A17 /* main.swift in Sources */,
 			);
@@ -299,16 +303,18 @@
 		0C1F5CAB2809F05400D44A17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = depnotify_commander.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = DEPNotifyCommander/depnotify_commander.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -316,16 +322,18 @@
 		0C1F5CAC2809F05400D44A17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = depnotify_commander.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = DEPNotifyCommander/depnotify_commander.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

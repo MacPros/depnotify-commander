@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+    
+    <!-- Note: Recent versions of Jamf have a setting for this under Computer Management - Management Framework > Security -->
+    
     <dict>
         <key>PayloadDisplayName</key>
         <string>Jamf Connect - PPPC #PreStage</string>

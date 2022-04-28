@@ -12,99 +12,152 @@ import Version
 
 // TODO: Add support to pull in the SSO user name: https://docs.jamf.com/jamf-connect/2.10.0/documentation/Notify_Screen.html
 
-print("depnotify-commander v\(Bundle.main.version.description)")
-
-let defaults = UserDefaults.standard
-
 // Note: We currently assume the DEPNotify log is in the default location.
 let depnotify = DEPNotify.shared
 let path = URL(fileURLWithPath: depnotify.logPath).deletingLastPathComponent().path
 guard path != "" else { fatalError() } // This shouldn't happen.
 
-// Export images
-let images = defaults.dictionary(forKey: "images") as? [String: Data]
-if let images = images {
-    for (imagePath, imageData) in images {
-        let imageURL = URL(fileURLWithPath: imagePath)
-        let imagePath = imageURL.deletingLastPathComponent().path // TODO: Make destination folder
-        do {
-            try imageData.write(to: imageURL)
-        } catch {
-            print("Failed to write image: \(imagePath)")
+DispatchQueue.main.async {
+
+    print("depnotify-commander v\(Bundle.main.version.description)")
+
+    let _ = disableScreenSleep(reason: "Deploying packages")
+
+    let defaults = UserDefaults.standard
+
+    // Export images
+    let images = defaults.dictionary(forKey: "images") as? [String: Data]
+    if let images = images {
+        for (imagePath, imageData) in images {
+            let imageURL = URL(fileURLWithPath: imagePath)
+            let imagePath = imageURL.deletingLastPathComponent().path // TODO: Make destination folder
+            do {
+                try imageData.write(to: imageURL)
+            } catch {
+                print("Failed to write image: \(imagePath)")
+            }
+            print("Exported image to: \(imagePath)")
         }
-        print("Exported image to: \(imagePath)")
     }
-}
 
-guard let jsonConfiguration = defaults.string(forKey: "configuration") else {
-    // TODO: Allow an alternative configuration using a JSON Schema.
-    fatalError("Missing configuration.")
-}
-
-let configuration: Configuration
-do {
-    configuration = try JSONDecoder().decode(Configuration.self, from: Data(jsonConfiguration.utf8))
-} catch {
-    fatalError("Invalid configuration. \(error)")
-}
-
-print("Starting DEPNotify workflow.")
-
-if let icon = configuration.icon {
-    depnotify.image = .path(icon)
-}
-
-if let content = configuration.content {
-    content.update()
-}
-
-if let status = configuration.status {
-    print("Status: \(status)")
-    depnotify.status = status
-}
-
-do {
-    for step in configuration.steps {
-        if let status = step.status {
-            print("Status: \(status)")
-            depnotify.status = status
+    // Export scripts
+    let scripts = defaults.dictionary(forKey: "scripts") as? [String: String]
+    if let scripts = scripts {
+        for (scriptPath, scriptContent) in scripts {
+            let scriptURL = URL(fileURLWithPath: scriptPath)
+            let scriptPath = scriptURL.deletingLastPathComponent().path // TODO: Make destination folder
+            do {
+                try scriptContent.write(to: scriptURL, atomically: false, encoding: .utf8)
+            } catch {
+                print("Failed to write script: \(scriptPath)")
+            }
+            print("Exported script to: \(scriptPath)")
         }
-        
-        if let content = step.content {
-            content.update()
+    }
+
+    // Load DEPNotify configuration
+    let configuration: Configuration
+    if let jsonConfiguration = defaults.string(forKey: "configuration") {
+        do {
+            configuration = try JSONDecoder().decode(Configuration.self, from: Data(jsonConfiguration.utf8))
+        } catch {
+            fatalError("Invalid configuration. \(error)")
         }
-        
-        if let event = step.event {
-            print("Starting policies with event: \(event)")
-            if let skipInventory = step.skipInventory, skipInventory == true {
-                try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
-            } else {
-                try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+    } else {
+        print("No JSON configuration found.")
+        configuration = Configuration()
+    }
+
+    // TODO: Allow an alternative configuration to be merged in using a JSON Schema.
+
+    print("Starting DEPNotify workflow.")
+
+    if let icon = configuration.icon {
+        depnotify.image = .path(icon)
+    }
+
+    if let content = configuration.content {
+        content.update()
+    }
+
+    if let status = configuration.status {
+        print("Status: \(status)")
+        depnotify.status = status
+    }
+
+    do {
+        for step in configuration.steps {
+            if let status = step.status {
+                print("Status: \(status)")
+                depnotify.status = status
+            }
+            
+            if let content = step.content {
+                content.update()
+            }
+            
+            if let script = step.runScript {
+                print("Running script: \(script)")
+                do {
+                    try shellOut(to: script)
+                } catch {
+                    if let abortOnError = step.abortOnError, !abortOnError {
+                        print("Error: \(error)")
+                        print("Errors are ignored. Resuming deployment.")
+                    } else  {
+                        fatalError("Error communicating with jamf command line. \(error)")
+                    }
+                }
+            }
+            
+            if let event = step.event {
+                print("Starting policies with event: \(event)")
+                if let skipInventory = step.skipInventory, skipInventory == true {
+                    try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
+                } else {
+                    try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+                }
             }
         }
+        
+        depnotify.status = ""
+        
+        if let disableNotify = configuration.disableNotifyOnSuccess, disableNotify {
+            try shellOut(to: "/usr/local/bin/authchanger", arguments: ["-reset", "-JamfConnect"])
+            print("Disabled Jamf Connect DEPNotify script.")
+        }
+        
+        if let completionContent = configuration.completionContent {
+            completionContent.update()
+        }
+        
+        if let completionButton = configuration.completionButton {
+            print("Enabling DEPNotify quit button titled \"\(completionButton)\".")
+            depnotify.showQuitButton(buttonLabel: completionButton)
+        }
+        
+        if let completionText = configuration.completionText {
+            print("Exiting DEPNotify with completion text: \(completionText)")
+            depnotify.quit(alertText: completionText)
+        }
+        
+        if let completionEvent = configuration.completionEvent {
+            print("Starting policies with completion event: \(completionEvent)")
+            try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
+        }
+        
+    } catch {
+        fatalError("Error communicating with jamf command line. \(error)")
     }
-    
-    depnotify.status = ""
-    
-    if let completionContent = configuration.completionContent {
-        completionContent.update()
-    }
-    
-    if let completionButton = configuration.completionButton {
-        depnotify.showQuitButton(buttonLabel: completionButton)
-    }
-    
-    if let completionEvent = configuration.completionEvent {
-        try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
-    }
-    
-    // /usr/local/bin/authchanger -reset -JamfConnect
-    
-} catch {
-    fatalError("Error communicating with jamf command line. \(error)")
+
+    let _ = enableScreenSleep()
+
+    print("DEPNotify workflow complete.")
+    exit(0)
 }
 
-print("DEPNotify workflow complete.")
+RunLoop.main.run()
+
 
 // MARK: - Helpers
 
@@ -144,5 +197,6 @@ extension DEPNotifyContent {
                 depnotify.content = .website(url)
             }
         }
+        print("Updated DEPNotify content.")
     }
 }
