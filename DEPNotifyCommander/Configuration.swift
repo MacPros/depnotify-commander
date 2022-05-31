@@ -9,8 +9,30 @@ import Foundation
 
 class Configuration: Decodable {
     
-    init() {
+    init(defaults: UserDefaults) {
         steps = []
+        if let stepPlists = defaults.array(forKey: "steps") {
+            for step in stepPlists {
+                if let stepPlist = step as? [String: Any] {
+                    steps.append(DEPNotifyStep(plist: stepPlist))
+                }
+            }
+        }
+    
+        if let contentPlist = defaults.dictionary(forKey: "content") {
+            content = DEPNotifyContent(plist: contentPlist)
+        }
+        
+        if let contentPlist = defaults.dictionary(forKey: "completionContent") {
+            completionContent = DEPNotifyContent(plist: contentPlist)
+        }
+        
+        status = defaults.string(forKey: "status")
+        icon = defaults.string(forKey: "icon")
+        disableNotifyOnSuccess = defaults.bool(forKey: "disableNotifyOnSuccess")
+        completionButton = defaults.string(forKey: "completionButton")
+        completionText = defaults.string(forKey: "completionText")
+        completionEvent = defaults.string(forKey: "completionEvent")
     }
     
     var steps: [DEPNotifyStep]
@@ -44,6 +66,17 @@ class Configuration: Decodable {
 
 class DEPNotifyStep: Decodable {
     
+    init(plist: [String: Any]) {
+        event = plist["event"] as? String
+        status = plist["status"] as? String
+        if let contentPlist = plist["content"] as? [String: Any] {
+            content = DEPNotifyContent(plist: contentPlist)
+        }
+        skipInventory = plist["skipInventory"] as? Bool
+        runScript = plist["runScript"] as? String
+        abortOnError = plist["abortOnError"] as? Bool
+    }
+    
     /// The custom trigger to invoke.
     var event: String?
     
@@ -60,6 +93,16 @@ class DEPNotifyStep: Decodable {
 }
 
 class DEPNotifyContent: Decodable {
+    
+    init(plist: [String: Any]) {
+        title = plist["title"] as? String
+        text = plist["text"] as? String
+        image = plist["image"] as? String
+        video = plist["video"] as? String
+        youTube = plist["youTube"] as? String
+        website = plist["website"] as? String
+    }
+    
     var title: String?
     
     var text: String?

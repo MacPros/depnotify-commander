@@ -22,7 +22,6 @@ Note: This utility is not yet tested for DEPNotify deployments using automated e
 * Option to pull the SSO user name in to a variable.
 * Option to set JAMF user with SSO user name.
 
-
 ## Notarization
 
 ```
@@ -38,3 +37,9 @@ xcrun stapler staple DEPNotifyCommander-1.0.1.pkg
 
 /usr/sbin/spctl --assess --type install -vv DEPNotifyCommander-1.0.1.pkg
 ```
+
+Note: Jamf Pre-Stage packages will only deploy if they are either built in Composer or have a package manifest uploaded with the package. The following tool could be used to generate a package manifest: https://www.dersoldat.org/?p=1456
+
+## Alternatives
+
+* [How to Deploy DEPNotify as a Jamf Pro PreStage Enrollment Package with Custom Launching Scripts](https://hcsonline.com/support/white-papers/how-to-deploy-depnotify-as-a-jamf-pro-prestage-enrollment-package-with-custom-launching-scripts)

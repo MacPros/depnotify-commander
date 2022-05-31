@@ -1,0 +1,58 @@
+{
+"title": "DEPNotify Commander (com.allcovered.depnotify-commander)",
+"description": "Preference settings for DEPNotify Commander",
+"properties": {
+    
+    "configuration": {
+    "title": "JSON Configuration",
+    "description": "An optional configuration in JSON format",
+    "property_order": 10,
+    "type": "string"
+    },
+    
+    
+    
+    "steps": {
+                "title": "Steps",
+                "description": "Add servers to management list.",
+                "property_order": 35,
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "serverAddress": {
+                            "title": "Hostname",
+                            "type": "string"
+                        },
+                        "macAddress": {
+                            "title": "MAC Address",
+                            "type": "string"
+                        },
+                        "ipAddress": {
+                            "title": "IP Address",
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+
+    "images": {
+        "title": "Images",
+        "description": "Deploy images with associated paths and base64 data",
+        "property_order": 90,
+        "type": "object",
+        "properties": {
+            "/var/tmp/depnotify_registration_picture.png": {
+                "title": "/var/tmp/depnotify_icon.png",
+                "type": "string"
+            },
+            "/var/tmp/depnotify_registration_picture.png": {
+                "title": "/var/tmp/depnotify_registration_image.png",
+                "type": "string"
+            },
+        },
+        "additionalProperties": { "type": "string" }
+    }
+
+}
+}

@@ -25,13 +25,19 @@ DispatchQueue.main.async {
 
     let defaults = UserDefaults.standard
 
-    // Export images
-    let images = defaults.dictionary(forKey: "images") as? [String: Data]
+    // Export images accepting base64 encoded strings or data values
+    var images = defaults.dictionary(forKey: "images") as? [String: Data]
+    if images == nil {
+        if let imageStrings = defaults.dictionary(forKey: "images") as? [String: String] {
+            images = imageStrings.compactMapValues { Data(base64Encoded: $0) }
+        }
+    }
     if let images = images {
         for (imagePath, imageData) in images {
             let imageURL = URL(fileURLWithPath: imagePath)
-            let imagePath = imageURL.deletingLastPathComponent().path // TODO: Make destination folder
+            let imagePath = imageURL.deletingLastPathComponent().path
             do {
+                try shellOut(to: "/bin/mkdir", arguments: ["-p", imagePath])
                 try imageData.write(to: imageURL)
             } catch {
                 print("Failed to write image: \(imagePath)")
@@ -45,8 +51,9 @@ DispatchQueue.main.async {
     if let scripts = scripts {
         for (scriptPath, scriptContent) in scripts {
             let scriptURL = URL(fileURLWithPath: scriptPath)
-            let scriptPath = scriptURL.deletingLastPathComponent().path // TODO: Make destination folder
+            let scriptPath = scriptURL.deletingLastPathComponent().path
             do {
+                try shellOut(to: "/bin/mkdir", arguments: ["-p", scriptPath])
                 try scriptContent.write(to: scriptURL, atomically: false, encoding: .utf8)
             } catch {
                 print("Failed to write script: \(scriptPath)")
@@ -64,11 +71,9 @@ DispatchQueue.main.async {
             fatalError("Invalid configuration. \(error)")
         }
     } else {
-        print("No JSON configuration found.")
-        configuration = Configuration()
+        print("No JSON configuration found, using plist configuration instead.")
+        configuration = Configuration(defaults: defaults)
     }
-
-    // TODO: Allow an alternative configuration to be merged in using a JSON Schema.
 
     print("Starting DEPNotify workflow.")
 

@@ -39,6 +39,7 @@
 		0C1F5CBC280B371D00D44A17 /* DEPNotify - Settings (Example).mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "DEPNotify - Settings (Example).mobileconfig"; sourceTree = "<group>"; };
 		0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = depnotify_commander.entitlements; sourceTree = "<group>"; };
 		0C1F5CBF280B4AA800D44A17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C9C70BC2837CB9600AE7EA9 /* com.allcovered.depnotify-commander.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "com.allcovered.depnotify-commander.json"; sourceTree = "<group>"; };
 		0CAFF7D9280B6133007CFFCF /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		0CAFF7DB280DC518007CFFCF /* self_service.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = self_service.sh; sourceTree = "<group>"; };
 		0CEB3BA7281AD98F00DED064 /* Caffeinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caffeinate.swift; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 				0C1F5CBA280B20C600D44A17 /* README.md */,
 				0C1F5CA52809F05400D44A17 /* DEPNotifyCommander */,
 				0C1F5CB7280B1E3100D44A17 /* JamfProfiles */,
-				0C1F5CBD280B3D7300D44A17 /* Package */,
 				0C1F5CA42809F05400D44A17 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,15 +98,9 @@
 				0C1F5CB8280B1EB200D44A17 /* Jamf Connect - PPPC.mobileconfig */,
 				0C1F5CBB280B290E00D44A17 /* Jamf Connect - Authchanger.mobileconfig */,
 				0C1F5CBC280B371D00D44A17 /* DEPNotify - Settings (Example).mobileconfig */,
+				0C9C70BC2837CB9600AE7EA9 /* com.allcovered.depnotify-commander.json */,
 			);
 			path = JamfProfiles;
-			sourceTree = "<group>";
-		};
-		0C1F5CBD280B3D7300D44A17 /* Package */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Package;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,8 +298,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = DEPNotifyCommander/depnotify_commander.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = L48NM5T974;
@@ -323,11 +317,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = DEPNotifyCommander/depnotify_commander.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				CURRENT_PROJECT_VERSION = 1.0.2;
-				DEVELOPMENT_TEAM = L48NM5T974;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
 				MARKETING_VERSION = 1.0.2;
