@@ -1,58 +1,177 @@
 {
-"title": "DEPNotify Commander (com.allcovered.depnotify-commander)",
-"description": "Preference settings for DEPNotify Commander",
-"properties": {
-    
-    "configuration": {
-    "title": "JSON Configuration",
-    "description": "An optional configuration in JSON format",
-    "property_order": 10,
-    "type": "string"
-    },
-    
-    
-    
-    "steps": {
-                "title": "Steps",
-                "description": "Add servers to management list.",
-                "property_order": 35,
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "serverAddress": {
-                            "title": "Hostname",
-                            "type": "string"
-                        },
-                        "macAddress": {
-                            "title": "MAC Address",
-                            "type": "string"
-                        },
-                        "ipAddress": {
-                            "title": "IP Address",
-                            "type": "string"
+    "title": "DEPNotify Commander (com.allcovered.depnotify-commander)",
+    "description": "Preference settings for DEPNotify Commander",
+    "properties": {
+
+        "configuration": {
+            "title": "JSON Configuration",
+            "description": "An optional configuration in JSON format. All other fields are ignored except for images and scripts.",
+            "property_order": 10,
+            "type": "string"
+        },
+
+        "status": {
+            "title": "Initial Status Message",
+            "type": "string"
+        },
+
+        "icon": {
+            "title": "Icon",
+            "type": "string"
+        },
+        
+        // TODO: Add other properties
+
+        // TODO: Steps isn't working
+        "steps": {
+            "title": "Steps",
+            "description": "Add servers to management list.",
+            "property_order": 35,
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "event": {
+                        "title": "Jamf Event",
+                        "type": "string"
+                    },
+                    "status": {
+                        "title": "Status Message",
+                        "type": "string"
+                    },
+                    "runScript": {
+                        "title": "Run Script",
+                        "type": "string"
+                    },
+                    "skipInventory": {
+                        "title": "Skip Inventory",
+                        "type": "bool"
+                    },
+                    "abortOnError": {
+                        "title": "Abort on Error",
+                        "type": "bool"
+                    },
+                    "content": {
+                        "title": "Content",
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "title": "Title",
+                                "type": "string"
+                            },
+                            "text": {
+                                "title": "Text",
+                                "type": "string"
+                            },
+                            "image": {
+                                "title": "Image",
+                                "type": "string"
+                            },
+                            "video": {
+                                "title": "Video",
+                                "type": "string"
+                            },
+                            "youTube": {
+                                "title": "YouTube Video",
+                                "type": "string"
+                            },
+                            "website": {
+                                "title": "Website",
+                                "type": "string"
+                            }
                         }
                     }
                 }
-            },
-
-    "images": {
-        "title": "Images",
-        "description": "Deploy images with associated paths and base64 data",
-        "property_order": 90,
-        "type": "object",
-        "properties": {
-            "/var/tmp/depnotify_registration_picture.png": {
-                "title": "/var/tmp/depnotify_icon.png",
-                "type": "string"
-            },
-            "/var/tmp/depnotify_registration_picture.png": {
-                "title": "/var/tmp/depnotify_registration_image.png",
-                "type": "string"
-            },
+            }
         },
-        "additionalProperties": { "type": "string" }
-    }
 
-}
+        "content": {
+            "title": "Content",
+            "type": "object",
+            "properties": {
+                "title": {
+                    "title": "Title",
+                    "type": "string"
+                },
+                "text": {
+                    "title": "Text",
+                    "type": "string"
+                },
+                "image": {
+                    "title": "Image",
+                    "type": "string"
+                },
+                "video": {
+                    "title": "Video",
+                    "type": "string"
+                },
+                "youTube": {
+                    "title": "YouTube Video",
+                    "type": "string"
+                },
+                "website": {
+                    "title": "Website",
+                    "type": "string"
+                }
+            }
+        },
+
+        "completionContent": {
+            "title": "Content",
+            "type": "object",
+            "properties": {
+                "title": {
+                    "title": "Title",
+                    "type": "string"
+                },
+                "text": {
+                    "title": "Text",
+                    "type": "string"
+                },
+                "image": {
+                    "title": "Image",
+                    "type": "string"
+                },
+                "video": {
+                    "title": "Video",
+                    "type": "string"
+                },
+                "youTube": {
+                    "title": "YouTube Video",
+                    "type": "string"
+                },
+                "website": {
+                    "title": "Website",
+                    "type": "string"
+                }
+            }
+        },
+
+        "images": {
+            "title": "Images",
+            "description": "Deploy images or other binary content with associated paths and base64 data",
+            "property_order": 90,
+            "type": "object",
+            "properties": {
+                "/var/tmp/depnotify_registration_picture.png": {
+                    "title": "/var/tmp/depnotify_icon.png",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+
+        "scripts": {
+            "title": "Scripts",
+            "description": "Deploy scripts or other UTF8 content with associated paths",
+            "property_order": 91,
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        }
+
+    }
 }

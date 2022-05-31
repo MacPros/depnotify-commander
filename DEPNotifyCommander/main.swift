@@ -64,7 +64,7 @@ DispatchQueue.main.async {
 
     // Load DEPNotify configuration
     let configuration: Configuration
-    if let jsonConfiguration = defaults.string(forKey: "configuration") {
+    if let jsonConfiguration = defaults.string(forKey: "configuration") ?? defaults.string(forKey: "managedConfiguration") {
         do {
             configuration = try JSONDecoder().decode(Configuration.self, from: Data(jsonConfiguration.utf8))
         } catch {
