@@ -224,6 +224,10 @@ public class DEPNotify {
         _command("ContinueButtonRestart: \(buttonLabel)")
     }
     
+    public func showEULAButton(buttonLabel: String) {
+        _command("ContinueButtonEULA: \(buttonLabel)")
+    }
+    
     /// This shows a sheet dialog and then log the user out when the "Logout" button is clicked. This is commonly used to log the user out and initiate a
     /// FileVault encryption process.
     public func showLogoutSheet(text: String) {

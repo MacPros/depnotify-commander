@@ -33,6 +33,7 @@ class Configuration: Decodable {
         completionButton = defaults.string(forKey: "completionButton")
         completionText = defaults.string(forKey: "completionText")
         completionEvent = defaults.string(forKey: "completionEvent")
+        eulaButton = defaults.string(forKey: "eulaButton")
     }
     
     var steps: [DEPNotifyStep]
@@ -51,6 +52,9 @@ class Configuration: Decodable {
     
     /// Disable notify script with authchanger on success.
     var disableNotifyOnSuccess: Bool?
+    
+    /// Show the EULA continue button with the custom label.
+    var eulaButton: String?
     
     /// Show a completion button after the last step.
     ///

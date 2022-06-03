@@ -89,6 +89,21 @@ DispatchQueue.main.async {
         print("Status: \(status)")
         depnotify.status = status
     }
+    
+    if let eulaButton = configuration.eulaButton {
+        print("Showing EULA continue button with label: \(eulaButton)")
+        depnotify.showEULAButton(buttonLabel: eulaButton)
+        let fm = FileManager.default
+        var seconds = 0
+        while !fm.fileExists(atPath: "/var/tmp/com.depnotify.provisioning.done") {
+            if (seconds % 120) == 0 {
+                print("Waiting for EULA... (\(seconds / 60) minutes)")
+            }
+            sleep(1)
+            seconds = seconds + 1
+        }
+        print("EULA accepted.")
+    }
 
     do {
         for step in configuration.steps {
