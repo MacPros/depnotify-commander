@@ -20,6 +20,11 @@ guard path != "" else { fatalError() } // This shouldn't happen.
 DispatchQueue.main.async {
 
     print("depnotify-commander v\(Bundle.main.version.description)")
+    
+    if FileManager.default.fileExists(atPath: "/private/var/db/.DEPNotifySetupDone") {
+        print("No setup required.")
+        exit(0)
+    }
 
     let _ = disableScreenSleep(reason: "Deploying packages")
 
@@ -163,10 +168,14 @@ DispatchQueue.main.async {
         
         if let completionEvent = configuration.completionEvent {
             print("Starting policies with completion event: \(completionEvent)")
+            FileManager.default.createFile(atPath: "/private/var/db/.DEPNotifySetupDone", contents: Data())
             try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
         }
         
+        depnotify.quit()
+        
     } catch {
+        depnotify.status = "An error occurred communicating with Jamf Pro."
         fatalError("Error communicating with jamf command line. \(error)")
     }
 
