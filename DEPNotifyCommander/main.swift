@@ -148,7 +148,8 @@ DispatchQueue.main.async {
         depnotify.status = ""
         
         if let disableNotify = configuration.disableNotifyOnSuccess, disableNotify {
-            try shellOut(to: "/usr/local/bin/authchanger", arguments: ["-reset", "-JamfConnect"])
+            let args = configuration.authchangerArguments ?? ["-reset", "-JamfConnect"]
+            try shellOut(to: "/usr/local/bin/authchanger", arguments: args)
             print("Disabled Jamf Connect DEPNotify script.")
         }
         
@@ -166,9 +167,10 @@ DispatchQueue.main.async {
             depnotify.quit(alertText: completionText)
         }
         
+        FileManager.default.createFile(atPath: "/private/var/db/.DEPNotifySetupDone", contents: Data())
+        
         if let completionEvent = configuration.completionEvent {
             print("Starting policies with completion event: \(completionEvent)")
-            FileManager.default.createFile(atPath: "/private/var/db/.DEPNotifySetupDone", contents: Data())
             try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
         }
         

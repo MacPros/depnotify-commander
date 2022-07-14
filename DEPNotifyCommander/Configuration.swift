@@ -53,6 +53,9 @@ class Configuration: Decodable {
     /// Disable notify script with authchanger on success.
     var disableNotifyOnSuccess: Bool?
     
+    /// Arguments to pass to disable notify script. By default `["-reset", "-JamfConnect"]`.
+    var authchangerArguments: [String]?
+    
     /// Show the EULA continue button with the custom label.
     var eulaButton: String?
     
