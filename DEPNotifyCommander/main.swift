@@ -10,6 +10,8 @@ import ShellOut
 import Files
 import Version
 
+// TODO: Add support for starting from a launch daemon. Add support for launch daemon self destruct. The installer should check for a custom setting (similar to authchanger) and conditionally deploy the launch daemon configuration.
+
 // TODO: Add support to pull in the SSO user name: https://docs.jamf.com/jamf-connect/2.10.0/documentation/Notify_Screen.html
 
 // Note: We currently assume the DEPNotify log is in the default location.
@@ -66,7 +68,7 @@ DispatchQueue.main.async {
             print("Exported script to: \(scriptPath)")
         }
     }
-
+    
     // Load DEPNotify configuration
     let configuration: Configuration
     if let jsonConfiguration = defaults.string(forKey: "configuration") ?? defaults.string(forKey: "managedConfiguration") {
@@ -108,6 +110,38 @@ DispatchQueue.main.async {
             seconds = seconds + 1
         }
         print("EULA accepted.")
+    }
+    
+    // Defaults to waiting for JSS connection unless set to false.
+    if configuration.waitForJSSConnection ?? true {
+        print("Waiting for jamf binary...")
+        depnotify.status = "Waiting for MDM agent..."
+        let fm = FileManager.default
+        var seconds = 0
+        while !fm.fileExists(atPath: "/usr/local/bin/jamf") {
+            if (seconds % 120) == 0 {
+                print("Waiting for \"jamf\" binary... (\(seconds / 60) minutes)")
+            }
+            sleep(1)
+            seconds = seconds + 1
+        }
+        
+        print("Waiting for JSS connection...")
+        depnotify.status = "Connecting to MDM server..."
+        var tries = 0
+        var waitingForConnection = true
+        while waitingForConnection {
+            print("Waiting for JSS connection... (\(tries) tries)")
+            waitingForConnection = false
+            do {
+                try shellOut(to: "/usr/local/bin/jamf", arguments: ["checkJSSConnection", "-retry", "10"])
+            } catch {
+                // returns 0 if available or 1 if not available
+                tries = tries + 10
+                waitingForConnection = true
+                sleep(10)
+            }
+        }
     }
 
     do {

@@ -34,7 +34,12 @@ class Configuration: Decodable {
         completionText = defaults.string(forKey: "completionText")
         completionEvent = defaults.string(forKey: "completionEvent")
         eulaButton = defaults.string(forKey: "eulaButton")
+        waitForJSSConnection = defaults.bool(forKey: "waitForJSSConnection")
     }
+    
+    
+    /// Wait for JSS to start. Defaults to `true` if not specified.
+    var waitForJSSConnection: Bool?
     
     var steps: [DEPNotifyStep]
     
