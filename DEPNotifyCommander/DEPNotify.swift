@@ -46,11 +46,11 @@ public class DEPNotify {
     ///
     /// - Parameter command: The DEPNotify command to run
     private func _command(_ command: String) {
-        try! _logFile.append("Command: \(command)\n")
+        try? _logFile.append("Command: \(command)\n")
     }
     
     private func _status(_ status: String) {
-        try! _logFile.append("Status: \(status)\n")
+        try? _logFile.append("Status: \(status)\n")
     }
     
     // MARK: Main Content
@@ -267,7 +267,7 @@ public class DEPNotify {
     }
     
     /// Quit DEPNotify. If alert text is specified, the alert dialog will be shown prior to quiting.
-    public func quit(alertText: String = "", removeCommandFile: Bool = true) {
+    public func quit(alertText: String = "", removeCommandFile: Bool = false) {
         if removeCommandFile {
             _command("KillCommandFile:")
         }

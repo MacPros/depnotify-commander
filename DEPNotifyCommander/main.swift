@@ -14,12 +14,13 @@ import Version
 
 // TODO: Add support to pull in the SSO user name: https://docs.jamf.com/jamf-connect/2.10.0/documentation/Notify_Screen.html
 
-// Note: We currently assume the DEPNotify log is in the default location.
 let depnotify = DEPNotify.shared
-let path = URL(fileURLWithPath: depnotify.logPath).deletingLastPathComponent().path
-guard path != "" else { fatalError() } // This shouldn't happen.
 
-DispatchQueue.main.async {
+DispatchQueue.global(qos: .userInitiated).async {
+    // Note: We currently assume the DEPNotify log is in the default location.
+    let depnotify = DEPNotify.shared
+    let path = URL(fileURLWithPath: depnotify.logPath).deletingLastPathComponent().path
+    guard path != "" else { fatalError() } // This shouldn't happen.
 
     print("depnotify-commander v\(Bundle.main.version.description)")
     
@@ -159,13 +160,13 @@ DispatchQueue.main.async {
             if let script = step.runScript {
                 print("Running script: \(script)")
                 do {
-                    try shellOut(to: script)
+                    let _ = try shellOut(to: script)
                 } catch {
                     if let abortOnError = step.abortOnError, !abortOnError {
                         print("Error: \(error)")
                         print("Errors are ignored. Resuming deployment.")
                     } else  {
-                        fatalError("Error communicating with jamf command line. \(error)")
+                        fatalError("Error running script. \(error)")
                     }
                 }
             }
