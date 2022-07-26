@@ -144,7 +144,8 @@ DispatchQueue.main.async {
         }
     }
 
-    do {
+    // NOTE: Currently exceptions are not caught when starting Jamf policies to allow the script to continue if a policy returns an error code. Add an option to retry policies or error out if a step fails.
+    //do {
         for step in configuration.steps {
             if let status = step.status {
                 print("Status: \(status)")
@@ -172,9 +173,9 @@ DispatchQueue.main.async {
             if let event = step.event {
                 print("Starting policies with event: \(event)")
                 if let skipInventory = step.skipInventory, skipInventory == true {
-                    try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
+                    let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
                 } else {
-                    try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+                    let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
                 }
             }
         }
@@ -183,7 +184,7 @@ DispatchQueue.main.async {
         
         if let disableNotify = configuration.disableNotifyOnSuccess, disableNotify {
             let args = configuration.authchangerArguments ?? ["-reset", "-JamfConnect"]
-            try shellOut(to: "/usr/local/bin/authchanger", arguments: args)
+            let _ = try? shellOut(to: "/usr/local/bin/authchanger", arguments: args)
             print("Disabled Jamf Connect DEPNotify script.")
         }
         
@@ -205,15 +206,17 @@ DispatchQueue.main.async {
         
         if let completionEvent = configuration.completionEvent {
             print("Starting policies with completion event: \(completionEvent)")
-            try shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
+            let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
         }
         
         depnotify.quit()
-        
+      
+    /*
     } catch {
         depnotify.status = "An error occurred communicating with Jamf Pro."
         fatalError("Error communicating with jamf command line. \(error)")
     }
+     */
 
     let _ = enableScreenSleep()
 
