@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C1F5CA72809F05400D44A17 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F5CA62809F05400D44A17 /* main.swift */; };
+		0C19BEEE2892A7B90098C14A /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 0C19BEED2892A7B90098C14A /* ArgumentParser */; };
+		0C19BEF02892A81F0098C14A /* depnotify_commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C19BEEF2892A81F0098C14A /* depnotify_commander.swift */; };
+		0C1F5CA72809F05400D44A17 /* Workflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F5CA62809F05400D44A17 /* Workflow.swift */; };
 		0C1F5CB62809FC1A00D44A17 /* DEPNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */; };
 		0CAFF7D2280B5DFC007CFFCF /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D1280B5DFC007CFFCF /* Version */; };
 		0CAFF7D5280B5E46007CFFCF /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 0CAFF7D4280B5E46007CFFCF /* Files */; };
@@ -29,8 +31,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C19BEEF2892A81F0098C14A /* depnotify_commander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = depnotify_commander.swift; sourceTree = "<group>"; };
 		0C1F5CA32809F05400D44A17 /* depnotify_commander */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = depnotify_commander; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C1F5CA62809F05400D44A17 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0C1F5CA62809F05400D44A17 /* Workflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workflow.swift; sourceTree = "<group>"; };
 		0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPNotify.swift; sourceTree = "<group>"; };
 		0C1F5CB8280B1EB200D44A17 /* Jamf Connect - PPPC.mobileconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Jamf Connect - PPPC.mobileconfig"; sourceTree = "<group>"; };
 		0C1F5CB9280B1F6800D44A17 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -52,6 +55,7 @@
 			files = (
 				0CAFF7D5280B5E46007CFFCF /* Files in Frameworks */,
 				0CAFF7D2280B5DFC007CFFCF /* Version in Frameworks */,
+				0C19BEEE2892A7B90098C14A /* ArgumentParser in Frameworks */,
 				0CAFF7D8280B5E58007CFFCF /* ShellOut in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,7 +86,8 @@
 			children = (
 				0C1F5CBE280B4A3500D44A17 /* depnotify_commander.entitlements */,
 				0C1F5CBF280B4AA800D44A17 /* Info.plist */,
-				0C1F5CA62809F05400D44A17 /* main.swift */,
+				0C19BEEF2892A81F0098C14A /* depnotify_commander.swift */,
+				0C1F5CA62809F05400D44A17 /* Workflow.swift */,
 				0C1F5CB52809FC1A00D44A17 /* DEPNotify.swift */,
 				0CAFF7D9280B6133007CFFCF /* Configuration.swift */,
 				0CEB3BA7281AD98F00DED064 /* Caffeinate.swift */,
@@ -123,6 +128,7 @@
 				0CAFF7D1280B5DFC007CFFCF /* Version */,
 				0CAFF7D4280B5E46007CFFCF /* Files */,
 				0CAFF7D7280B5E58007CFFCF /* ShellOut */,
+				0C19BEED2892A7B90098C14A /* ArgumentParser */,
 			);
 			productName = NotifyCommander;
 			productReference = 0C1F5CA32809F05400D44A17 /* depnotify_commander */;
@@ -156,6 +162,7 @@
 				0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */,
 				0CAFF7D3280B5E46007CFFCF /* XCRemoteSwiftPackageReference "files" */,
 				0CAFF7D6280B5E58007CFFCF /* XCRemoteSwiftPackageReference "ShellOut" */,
+				0C19BEEC2892A7B90098C14A /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
 			productRefGroup = 0C1F5CA42809F05400D44A17 /* Products */;
 			projectDirPath = "";
@@ -173,8 +180,9 @@
 			files = (
 				0CAFF7DA280B6133007CFFCF /* Configuration.swift in Sources */,
 				0CEB3BA8281AD98F00DED064 /* Caffeinate.swift in Sources */,
+				0C19BEF02892A81F0098C14A /* depnotify_commander.swift in Sources */,
 				0C1F5CB62809FC1A00D44A17 /* DEPNotify.swift in Sources */,
-				0C1F5CA72809F05400D44A17 /* main.swift in Sources */,
+				0C1F5CA72809F05400D44A17 /* Workflow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,12 +309,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 1.0.8;
+				CURRENT_PROJECT_VERSION = 1.0.9;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -321,12 +329,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 1.0.8;
+				CURRENT_PROJECT_VERSION = 1.0.9;
 				DEVELOPMENT_TEAM = L48NM5T974;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DEPNotifyCommander/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allcovered.depnotify-commander";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -358,6 +366,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0C19BEEC2892A7B90098C14A /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/Version.git";
@@ -385,6 +401,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0C19BEED2892A7B90098C14A /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C19BEEC2892A7B90098C14A /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
 		0CAFF7D1280B5DFC007CFFCF /* Version */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0CAFF7D0280B5DFC007CFFCF /* XCRemoteSwiftPackageReference "Version" */;

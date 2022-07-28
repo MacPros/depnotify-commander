@@ -8,8 +8,40 @@
 import Foundation
 import Files
 
+// TODO: There were issues with writing to the log file in the wrong order. Forcing a sync to make sure that is occuring. This change is expiramental, but will no longer be needed once DEPNotify is removed as a dependency.
+extension File {
+    
+    /// Append a set of binary data to the file's existing contents.
+    /// - parameter data: The binary data to append.
+    /// - throws: `WriteError` in case the operation couldn't be completed.
+    func appendAndSync(_ data: Data) throws {
+        do {
+            let handle = try FileHandle(forWritingTo: url)
+            handle.seekToEndOfFile()
+            handle.write(data)
+            try handle.synchronize()
+            handle.closeFile()
+        } catch {
+            throw WriteError(path: path, reason: .writeFailed(error))
+        }
+    }
+    
+    /// Append a string to the file's existing contents.
+    /// - parameter string: The string to append.
+    /// - parameter encoding: The encoding of the string (default: `UTF8`).
+    /// - throws: `WriteError` in case the operation couldn't be completed.
+    func appendAndSync(_ string: String, encoding: String.Encoding = .utf8) throws {
+        guard let data = string.data(using: encoding) else {
+            throw WriteError(path: path, reason: .stringEncodingFailed(string))
+        }
+
+        return try appendAndSync(data)
+    }
+    
+}
+
 /// A wrapper class to send commands to DEPNotify.
-public class DEPNotify {
+public actor DEPNotify {
     
     public static let shared = try! DEPNotify()
     
@@ -36,21 +68,15 @@ public class DEPNotify {
         _logFile = try logFolder.createFile(named: logFileName)
     }
     
-    deinit {
-        if closeOnDeinit {
-            quit()
-        }
-    }
-    
     /// Run a DEPNotify command.
     ///
     /// - Parameter command: The DEPNotify command to run
     private func _command(_ command: String) {
-        try? _logFile.append("Command: \(command)\n")
+        try? _logFile.appendAndSync("Command: \(command)\n")
     }
     
     private func _status(_ status: String) {
-        try? _logFile.append("Status: \(status)\n")
+        try? _logFile.appendAndSync("Status: \(status)\n")
     }
     
     // MARK: Main Content
@@ -78,60 +104,52 @@ public class DEPNotify {
     }
     
     /// Change the default DEPNotify logo
-    public var image: Image? = nil {
-        didSet {
-            switch image {
-            case .path(let path):
-                _command("Image: \(path)")
-            case .url(let url):
-                _command("Image: \(url.absoluteString)")
-            case .none:
-                _command("Image: ")
-            }
+    public func setImage(_ image: Image?) {
+        switch image {
+        case .path(let path):
+            _command("Image: \(path)")
+        case .url(let url):
+            _command("Image: \(url.absoluteString)")
+        case .none:
+            _command("Image: ")
         }
     }
     
     /// The main title of text in the application
-    public var title: String = "" {
-        didSet {
-            _command("MainTitle: \(title)")
-        }
+    public func setTitle(_ title: String) {
+        _command("MainTitle: \(title)")
     }
     
-    public var content: MainContent? = nil {
-        didSet {
-            switch content {
-            case .text(let text):
-                _command("MainText: \(text)")
-            case .image(let image):
-                switch image {
-                case .path(let path):
-                    _command("MainTextImage: \(path)")
-                case .url(let url):
-                    _command("MainTextImage: \(url.absoluteString)")
-                }
-            case .video(let video):
-                switch video {
-                case .path(let path):
-                    _command("Video: \(path)")
-                case .url(let url):
-                    _command("Video: \(url.absoluteString)")
-                case .youTube(id: let id):
-                    _command("YouTube: \(id)")
-                }
-            case .website(let url):
-                _command("Website: \(url.absoluteString)")
-            case .none:
-                _command("MainText: ")
+    public func setContent(_ content: MainContent?) {
+        switch content {
+        case .text(let text):
+            _command("MainText: \(text)")
+        case .image(let image):
+            switch image {
+            case .path(let path):
+                _command("MainTextImage: \(path)")
+            case .url(let url):
+                _command("MainTextImage: \(url.absoluteString)")
             }
+        case .video(let video):
+            switch video {
+            case .path(let path):
+                _command("Video: \(path)")
+            case .url(let url):
+                _command("Video: \(url.absoluteString)")
+            case .youTube(id: let id):
+                _command("YouTube: \(id)")
+            }
+        case .website(let url):
+            _command("Website: \(url.absoluteString)")
+        case .none:
+            _command("MainText: ")
         }
     }
     
     /// The status text
-    public var status: String = "" {
-        didSet {
-            _status(status)
-        }
+    public func setStatus(_ status: String) {
+        _status(status)
     }
     
     // MARK: Progress Bar Management
@@ -149,17 +167,15 @@ public class DEPNotify {
         case determinateAuto(steps: Int)
     }
     
-    /// The progress bar mode
-    public var progressBarMode: ProgressBarMode = .indeterminate {
-        didSet {
-            switch progressBarMode {
-            case .indeterminate:
-                _command("DeterminateOff:")
-            case .determinate(let steps):
-                _command("DeterminateManual: \(steps)")
-            case .determinateAuto(let steps):
-                _command("Determinate: \(steps)")
-            }
+    /// The progress bar mode. This is `.indeterminate` by default.
+    public func setProgressBarMode(_ mode: ProgressBarMode) {
+        switch mode {
+        case .indeterminate:
+            _command("DeterminateOff:")
+        case .determinate(let steps):
+            _command("DeterminateManual: \(steps)")
+        case .determinateAuto(let steps):
+            _command("Determinate: \(steps)")
         }
     }
     
@@ -176,7 +192,7 @@ public class DEPNotify {
     /// Reset progress bar back to defaults. Set `progressBarMode` after calling.
     public func resetProgressBar() {
         progressBarStep = 0
-        progressBarMode = .indeterminate
+        setProgressBarMode(.indeterminate)
         _command("DeterminateOffReset:")
     }
     
@@ -255,10 +271,8 @@ public class DEPNotify {
     
     /// This will change the default key to quit DEPNotify. By default this is the "x" key with the command and control keys held down. Setting `quitKey`
     /// allows you to change "x" to any other single character. Note: you are unable to modify the requirement for the command and control keys.
-    public var quitKey: Character = "x" {
-        didSet {
-            _command("QuitKey: \(quitKey)")
-        }
+    public func setQuitKey(_ quitKey: Character) {
+        _command("QuitKey: \(quitKey)")
     }
     
     /// Executes an immediate logout of the user session without waiting until the user responds to the alert
@@ -278,4 +292,47 @@ public class DEPNotify {
         }
     }
     
+}
+
+// MARK: - Helpers
+
+extension DEPNotifyContent {
+    public func update() async {
+        let depnotify = DEPNotify.shared
+        if let title = title {
+            await depnotify.setTitle(title)
+        }
+        if let text = text {
+            await depnotify.setContent(.text(text))
+        }
+        
+        if let image = image, image != "" {
+            await depnotify.setContent(.image(.path(image)))
+        }
+        
+        if let video = video, video != "" {
+            var vid: DEPNotify.Video? = nil
+            if video.hasPrefix("http") {
+                if let url = URL(string: video) {
+                    vid = .url(url)
+                } else {
+                    vid = .path(video)
+                }
+            }
+            if let vid = vid {
+                await depnotify.setContent(.video(vid))
+            }
+        }
+        
+        if let youTube = youTube, youTube != "" {
+            await depnotify.setContent(.video(.youTube(id: youTube)))
+        }
+        
+        if let website = website, website != "" {
+            if let url = URL(string: website) {
+                await depnotify.setContent(.website(url))
+            }
+        }
+        print("Updated DEPNotify content.")
+    }
 }

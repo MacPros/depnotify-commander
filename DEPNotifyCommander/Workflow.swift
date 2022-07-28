@@ -7,19 +7,17 @@
 
 import Foundation
 import ShellOut
-import Files
 import Version
 
 // TODO: Add support for starting from a launch daemon. Add support for launch daemon self destruct. The installer should check for a custom setting (similar to authchanger) and conditionally deploy the launch daemon configuration.
 
 // TODO: Add support to pull in the SSO user name: https://docs.jamf.com/jamf-connect/2.10.0/documentation/Notify_Screen.html
 
-let depnotify = DEPNotify.shared
-
-DispatchQueue.global(qos: .userInitiated).async {
+func executeWorkflow(mockRun: Bool = false) async throws {
     // Note: We currently assume the DEPNotify log is in the default location.
     let depnotify = DEPNotify.shared
-    let path = URL(fileURLWithPath: depnotify.logPath).deletingLastPathComponent().path
+    let logPath = await depnotify.logPath
+    let path = URL(fileURLWithPath: logPath).deletingLastPathComponent().path
     guard path != "" else { fatalError() } // This shouldn't happen.
 
     print("depnotify-commander v\(Bundle.main.version.description)")
@@ -72,7 +70,7 @@ DispatchQueue.global(qos: .userInitiated).async {
     
     // Load DEPNotify configuration
     let configuration: Configuration
-    if let jsonConfiguration = defaults.string(forKey: "configuration") ?? defaults.string(forKey: "managedConfiguration") {
+    if let jsonConfiguration = defaults.string(forKey: "configuration") ?? defaults.string(forKey: "managedConfiguration"), jsonConfiguration != "" {
         do {
             configuration = try JSONDecoder().decode(Configuration.self, from: Data(jsonConfiguration.utf8))
         } catch {
@@ -80,27 +78,28 @@ DispatchQueue.global(qos: .userInitiated).async {
         }
     } else {
         print("No JSON configuration found, using plist configuration instead.")
+        // Note: This will return a workflow without any steps if there is no plist or JSON configuration.
         configuration = Configuration(defaults: defaults)
     }
 
     print("Starting DEPNotify workflow.")
 
     if let icon = configuration.icon {
-        depnotify.image = .path(icon)
+        await depnotify.setImage(.path(icon))
     }
 
     if let content = configuration.content {
-        content.update()
+        await content.update()
     }
 
     if let status = configuration.status {
         print("Status: \(status)")
-        depnotify.status = status
+        await depnotify.setStatus(status)
     }
     
     if let eulaButton = configuration.eulaButton {
         print("Showing EULA continue button with label: \(eulaButton)")
-        depnotify.showEULAButton(buttonLabel: eulaButton)
+        await depnotify.showEULAButton(buttonLabel: eulaButton)
         let fm = FileManager.default
         var seconds = 0
         while !fm.fileExists(atPath: "/var/tmp/com.depnotify.provisioning.done") {
@@ -116,7 +115,7 @@ DispatchQueue.global(qos: .userInitiated).async {
     // Defaults to waiting for JSS connection unless set to false.
     if configuration.waitForJSSConnection ?? true {
         print("Waiting for jamf binary...")
-        depnotify.status = "Waiting for MDM agent..."
+        await depnotify.setStatus("Waiting for MDM agent...")
         let fm = FileManager.default
         var seconds = 0
         while !fm.fileExists(atPath: "/usr/local/bin/jamf") {
@@ -128,7 +127,7 @@ DispatchQueue.global(qos: .userInitiated).async {
         }
         
         print("Waiting for JSS connection...")
-        depnotify.status = "Connecting to MDM server..."
+        await depnotify.setStatus("Connecting to MDM server...")
         var tries = 0
         var waitingForConnection = true
         while waitingForConnection {
@@ -150,11 +149,11 @@ DispatchQueue.global(qos: .userInitiated).async {
         for step in configuration.steps {
             if let status = step.status {
                 print("Status: \(status)")
-                depnotify.status = status
+                await depnotify.setStatus(status)
             }
             
             if let content = step.content {
-                content.update()
+                await content.update()
             }
             
             if let script = step.runScript {
@@ -173,44 +172,51 @@ DispatchQueue.global(qos: .userInitiated).async {
             
             if let event = step.event {
                 print("Starting policies with event: \(event)")
-                if let skipInventory = step.skipInventory, skipInventory == true {
-                    let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
-                } else {
-                    let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+                if !mockRun {
+                    if let skipInventory = step.skipInventory, skipInventory == true {
+                        let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event, "-forceNoRecon"])
+                    } else {
+                        let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", event])
+                    }
                 }
             }
         }
         
-        depnotify.status = ""
+        await depnotify.setStatus("")
         
         if let disableNotify = configuration.disableNotifyOnSuccess, disableNotify {
-            let args = configuration.authchangerArguments ?? ["-reset", "-JamfConnect"]
-            let _ = try? shellOut(to: "/usr/local/bin/authchanger", arguments: args)
+            if !mockRun {
+                let args = configuration.authchangerArguments ?? ["-reset", "-JamfConnect"]
+                let _ = try? shellOut(to: "/usr/local/bin/authchanger", arguments: args)
+            }
             print("Disabled Jamf Connect DEPNotify script.")
         }
         
         if let completionContent = configuration.completionContent {
-            completionContent.update()
+            await completionContent.update()
         }
         
         if let completionButton = configuration.completionButton {
             print("Enabling DEPNotify quit button titled \"\(completionButton)\".")
-            depnotify.showQuitButton(buttonLabel: completionButton)
+            await depnotify.showQuitButton(buttonLabel: completionButton)
         }
         
         if let completionText = configuration.completionText {
             print("Exiting DEPNotify with completion text: \(completionText)")
-            depnotify.quit(alertText: completionText)
+            await depnotify.quit(alertText: completionText)
         }
         
         FileManager.default.createFile(atPath: "/private/var/db/.DEPNotifySetupDone", contents: Data())
         
-        if let completionEvent = configuration.completionEvent {
-            print("Starting policies with completion event: \(completionEvent)")
+    if let completionEvent = configuration.completionEvent {
+        print("Starting policies with completion event: \(completionEvent)")
+        if !mockRun {
             let _ = try? shellOut(to: "/usr/local/bin/jamf", arguments: ["policy", "-event", completionEvent])
+            
         }
+    }
         
-        depnotify.quit()
+        await depnotify.quit()
       
     /*
     } catch {
@@ -225,47 +231,4 @@ DispatchQueue.global(qos: .userInitiated).async {
     exit(0)
 }
 
-RunLoop.main.run()
 
-
-// MARK: - Helpers
-
-extension DEPNotifyContent {
-    public func update() {
-        if let title = title {
-            depnotify.title = title
-        }
-        if let text = text {
-            depnotify.content = .text(text)
-        }
-        
-        if let image = image, image != "" {
-            depnotify.content = .image(.path(image))
-        }
-        
-        if let video = video, video != "" {
-            var vid: DEPNotify.Video? = nil
-            if video.hasPrefix("http") {
-                if let url = URL(string: video) {
-                    vid = .url(url)
-                } else {
-                    vid = .path(video)
-                }
-            }
-            if let vid = vid {
-                depnotify.content = .video(vid)
-            }
-        }
-        
-        if let youTube = youTube, youTube != "" {
-            depnotify.content = .video(.youTube(id: youTube))
-        }
-        
-        if let website = website, website != "" {
-            if let url = URL(string: website) {
-                depnotify.content = .website(url)
-            }
-        }
-        print("Updated DEPNotify content.")
-    }
-}
